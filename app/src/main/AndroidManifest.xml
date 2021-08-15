@@ -5,6 +5,7 @@
     >
 
     <application
+        android:name=".App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -12,8 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthCheck.SplashScreen"
         >
+
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.HealthCheck.SplashScreen"
