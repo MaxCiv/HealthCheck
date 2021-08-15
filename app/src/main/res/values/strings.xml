@@ -1,3 +1,3 @@
 <resources>
-    <string name="app_name">HealthCheck</string>
+    <string name="app_name" translatable="false">HealthCheck</string>
 </resources>

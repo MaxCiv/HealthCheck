@@ -11,35 +11,81 @@ android {
         minSdk 21
         targetSdk 30
         versionCode 1
-        versionName "1.0"
-
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
         }
+        setProperty("archivesBaseName", "HealthCheck-$versionName-(${versionCode})")
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
+    sourceSets {
+        named("main") {
+            java.srcDirs("src/main/kotlin", "src/main/kotlinx")
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../certs/debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+        }
     }
 
     buildTypes {
-        release {
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "mode"
+
+    productFlavors {
+        dev {
+            applicationId "com.maxciv.healthcheck.dev"
+        }
+
+        prod {
+            applicationId "com.maxciv.healthcheck"
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
         useIR = true
     }
+
     buildFeatures {
         compose true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.5.10'
+        kotlinCompilerVersion '1.5.21'
     }
+
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
