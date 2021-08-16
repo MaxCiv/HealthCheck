@@ -1,6 +1,7 @@
 package com.maxciv.healthcheck
 
 import android.app.Application
+import com.maxciv.healthcheck.util.isDebug
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -14,7 +15,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        if (BuildConfig.DEBUG) {
+        if (isDebug) {
             Timber.plant(Timber.DebugTree())
         }
     }
