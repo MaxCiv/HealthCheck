@@ -2,6 +2,7 @@ package com.maxciv.healthcheck.service
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import ru.gildor.coroutines.okhttp.await
 
 /**
  * @author maxim.oleynik
@@ -12,13 +13,13 @@ constructor(
     private val okHttpClient: OkHttpClient,
 ) : UrlReachabilityChecker {
 
-    override fun checkUrlReachability(url: String): Boolean {
+    override suspend fun checkUrlReachability(url: String): Boolean {
         val request = Request.Builder()
             .url(url)
             .method("GET", null)
             .build()
         val response = try {
-            okHttpClient.newCall(request).execute()
+            okHttpClient.newCall(request).await()
         } catch (cause: Throwable) {
             return false
         }

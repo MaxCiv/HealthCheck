@@ -16,4 +16,12 @@ class MainState {
         set(value) {
             isUrlReachableMutableFlow.value = value
         }
+    
+    private val healthCheckCollectionListItemsMutableFlow: MutableStateFlow<List<HealthCheckCollectionListItem>> = MutableStateFlow(listOf())
+    val healthCheckCollectionListItemsFlow: StateFlow<List<HealthCheckCollectionListItem>> = healthCheckCollectionListItemsMutableFlow
+    var healthCheckCollectionListItems: List<HealthCheckCollectionListItem>
+        get() = healthCheckCollectionListItemsMutableFlow.value
+        set(value) {
+            healthCheckCollectionListItemsMutableFlow.value = value
+        }
 }

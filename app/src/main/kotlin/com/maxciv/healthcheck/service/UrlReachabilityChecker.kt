@@ -6,5 +6,5 @@ package com.maxciv.healthcheck.service
  */
 interface UrlReachabilityChecker {
 
-    fun checkUrlReachability(url: String): Boolean
+    suspend fun checkUrlReachability(url: String): Boolean
 }

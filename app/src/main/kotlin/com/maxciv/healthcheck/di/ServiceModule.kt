@@ -1,5 +1,8 @@
 package com.maxciv.healthcheck.di
 
+import com.maxciv.healthcheck.repository.HealthCheckCollectionsRepository
+import com.maxciv.healthcheck.service.HealthChecker
+import com.maxciv.healthcheck.service.HealthCheckerImpl
 import com.maxciv.healthcheck.service.OkHttpUrlReachabilityChecker
 import com.maxciv.healthcheck.service.UrlReachabilityChecker
 import dagger.Module
@@ -24,6 +27,18 @@ object ServiceModule {
     ): UrlReachabilityChecker {
         return OkHttpUrlReachabilityChecker(
             okHttpClient,
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideHealthChecker(
+        healthCheckCollectionsRepository: HealthCheckCollectionsRepository,
+        urlReachabilityChecker: UrlReachabilityChecker,
+    ): HealthChecker {
+        return HealthCheckerImpl(
+            healthCheckCollectionsRepository,
+            urlReachabilityChecker,
         )
     }
 }
